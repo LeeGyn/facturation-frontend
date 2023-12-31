@@ -1,0 +1,28 @@
+<div class="card container mt-4">
+  <div class="card-header">Commandes</div>
+  <div class="card-body">
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>CODE</th>
+        <th>MONTANT</th>
+        <th>QUANTITE ACHAT</th>
+        <th>STATUS</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let c of commandes">
+        <td>{{c.code}}</td>
+        <td>{{c.prix}}</td>
+        <td>{{c.quantite}}</td>
+        <td>Payé</td>
+        <!--<td *ngIf="c.payed == 'true'; else notPayed">Payer</td>-->
+        <!--<ng-template #notPayed><td>Non Payé</td></ng-template>-->
+        <td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="container mt-2">
+  <h2>Panier</h2>
+  <!--<ul>
+    <li *ngFor="let product of selectedProducts">{{ product.designation }} - {{ product.prix }}</li>
+  </ul>-->
+  <p>Nombre d'articles sélectionnés : {{ selectedProducts.length }}</p>
+  <p>Somme des prix : {{ calculateTotalPrice() }}</p>
+
+  <div class="row">
+    <div class="col-3">
+      <!--<ng-container *ngIf="produits | async as listProduits; else failureOrLoading">-->
+      <button class="btn btn-success btn-sm mb-5" (click)="createOrder()" [disabled]="selectedProducts.length === 0">Payer votre commande</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-info btn-sm mb-5" (click)="showOrderDetails()" [disabled]="selectedProducts.length === 0">Voir les détails du panier</button>
+    </div>
+  </div>
+
+  <!-- Affichez les détails de la commande si showDetails est true -->
+  <div *ngIf="showDetails" >
+  <div class="mb-5" *ngIf="selectedProducts.length > 0">
+    <div class="container mt-4" >
+      <div class="card">
+        <div class="card-header">
+          <h5>Détails de la commande</h5>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Code</th>
+              <th>Désignation</th>
+              <th>Quantité</th>
+              <th>Prix</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Utilisez *ngFor pour itérer sur les produits -->
+            <tr *ngFor="let product of selectedProducts">
+              <td>{{ product.code }}</td>
+              <td>{{ product.designation }}</td>
+              <td>{{ product.quantite }}</td>
+              <td>{{ product.prix }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteProduct(product)">Supprimer</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+    <div class="card">
+      <div class="card-header">Produits</div>
+      <div class="card-body">
+        <div *ngIf="searchFormGroup">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="onSearchProduit()">
+            <div class="input-group">
+              <label class="input-group-text">keyword</label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-info">Recherche</button>
+            </div>
+          </form>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>CODE</th>
+            <th>DESIGNATION</th>
+            <th>QUANTITE</th>
+            <th>PRIX</th>
+            <th>PHOTO</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let p of produits">
+            <td>{{p.code}}</td>
+            <td>{{p.designation}}</td>
+            <td>{{p.quantite}}</td>
+            <td>{{p.prix}}</td>
+            <td>
+            <td>
+              <img *ngIf="p.photo && p.photo.length > 0" [src]="getSafeImageSrc(p.photo)" alt="Image du produit">
+            </td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm " (click)="addToCart(p)">Ajouter au panier</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <!--</ng-container>
+
+  <ng-template #failureOrLoading>
+    <ng-container *ngIf="errorsMessage; else loading">
+      <div class="text-bg-info">{{errorsMessage}} </div>
+    </ng-container>
+    <ng-template #loading>
+      Loading...
+    </ng-template>
+  </ng-template>-->
+
+</div>
